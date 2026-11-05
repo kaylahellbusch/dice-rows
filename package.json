@@ -1,0 +1,5 @@
+{
+  "name": "dice-rows", "version": "1.0.0", "private": true, "type": "module",
+  "scripts": { "start": "node server.js", "dev": "node --watch server.js", "test": "node --test", "check": "node --check server.js && node --check game.js && node --check public/app.js" },
+  "engines": { "node": ">=22" }
+}
