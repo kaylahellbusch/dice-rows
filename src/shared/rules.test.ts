@@ -31,7 +31,7 @@ function finish(g: Game) {
 }
 describe("rules", () => {
   it("left to right", () => {
-    let g = setup();
+    const g = setup();
     g.players[0].board.red = [7];
     expect(canMark(g, "a", "red", 6, "white")).toBe(false);
   });
