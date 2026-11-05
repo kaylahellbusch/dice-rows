@@ -77,4 +77,14 @@ describe("ScoreCard", () => {
     fireEvent.click(button);
     expect(mark).not.toHaveBeenCalled();
   });
+  it("cancels on a disabled number tap", () => {
+    const mark = vi.fn();
+    render(<ScoreCard game={game()} playerId="a" onMark={mark} />);
+    const available = screen.getByRole("button", { name: "red 6" });
+    fireEvent.click(available);
+    fireEvent.pointerDown(screen.getByRole("button", { name: "red 2" }));
+    expect(available.getAttribute("aria-pressed")).toBe("false");
+    fireEvent.click(available);
+    expect(mark).not.toHaveBeenCalled();
+  });
 });

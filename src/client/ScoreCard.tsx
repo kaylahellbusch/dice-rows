@@ -16,9 +16,22 @@ export function ScoreCard({
   const player = game.players.find((p) => p.id === playerId)!;
   useEffect(() => {
     const cancel = () => setSelected(null);
+    const cancelDisabledTap = (event: PointerEvent) => {
+      if (
+        event.target instanceof Element &&
+        event.target.closest("button:disabled")
+      ) {
+        setSelected(null);
+      }
+    };
     document.addEventListener("click", cancel);
-    return () => document.removeEventListener("click", cancel);
+    document.addEventListener("pointerdown", cancelDisabledTap, true);
+    return () => {
+      document.removeEventListener("click", cancel);
+      document.removeEventListener("pointerdown", cancelDisabledTap, true);
+    };
   }, []);
+  useEffect(() => setSelected(null), [game.turn, game.phase]);
   return (
     <div className="score-card">
       {(["red", "yellow", "blue", "green"] as RowColor[]).map((color, i) => {
